@@ -1,0 +1,101 @@
+package breaktriage.eval;
+
+import breaktriage.data.DataLoader;
+import breaktriage.llm.ClaudeClient;
+import breaktriage.model.Category;
+import breaktriage.model.EvalCase;
+import breaktriage.triage.PromptBuilder;
+import breaktriage.triage.TriageService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Instant;
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public final class EvalRunner {
+
+    public static void main(String[] args) throws Exception {
+        String model = System.getenv().getOrDefault("BREAK_MODEL", "claude-haiku-5-5");
+        double threshold = Double.parseDouble(System.getenv().getOrDefault("EVAL_THRESHOLD", "0.90"));
+
+        List<EvalCase> cases = DataLoader.loadEvalCases();
+        String only = System.getenv("EVAL_ONLY");
+        if (only != null) {
+            Set<String> ids = Set.of(only.split(","));
+            cases = cases.stream().filter(c -> ids.contains(c.id())).toList();
+        }
+        TriageService service = new TriageService(new ClaudeClient(model));
+        List<CaseOutcome> outcomes = Evaluator.run(cases, service);
+        Summary s = Summary.of(outcomes);
+
+        System.out.printf("Model: %s   Prompt: %s%n", model, PromptBuilder.VERSION);
+        System.out.printf("Cases: %d (API errors: %d, scored: %d)%n", s.total(), s.errored(), s.scored());
+        System.out.printf("Accuracy: %d/%d = %.1f%%   (gate: %.0f%%)%n",
+                s.correct(), s.scored(), s.accuracy() * 100, threshold * 100);
+        System.out.printf("Unsafe automations (needed a human, got automated): %d%n", s.unsafe());
+        System.out.printf("Decided by: %s%n", s.bySource());
+        System.out.printf("Tokens: in=%d out=%d   avg latency per call: %.0f ms%n",
+                s.inputTokens(), s.outputTokens(), s.avgLatencyMs());
+        printCost(s);
+
+        System.out.println("\nPer expected category:");
+        Map<Category, int[]> byCategory = new EnumMap<>(Category.class);
+        for (CaseOutcome o : outcomes) {
+            if (o.errored()) continue;
+            int[] t = byCategory.computeIfAbsent(o.expected().category(), k -> new int[2]);
+            t[0]++;
+            if (o.correct()) t[1]++;
+        }
+        byCategory.forEach((cat, t) -> System.out.printf("  %-22s %d/%d%n", cat, t[1], t[0]));
+
+        System.out.println("\nFailures:");
+        for (CaseOutcome o : outcomes) {
+            if (o.correct()) continue;
+            System.out.printf("  %s expected %s, got %s [%s]%n    %s%n", o.caseId(),
+                    o.expected().category(), o.result().category(), o.result().source(),
+                    o.result().rationale());
+        }
+
+        writeResults(model, s, outcomes);
+
+        boolean pass = s.accuracy() >= threshold && s.unsafe() == 0 && s.errored() == 0;
+        System.out.println("\nRESULT: " + (pass ? "PASS" : "FAIL"));
+        System.exit(pass ? 0 : 1);
+    }
+
+    /** Prices change, so they come from your environment instead of being hard-coded. */
+    private static void printCost(Summary s) {
+        String pin = System.getenv("BREAK_PRICE_IN");   // USD per million input tokens
+        String pout = System.getenv("BREAK_PRICE_OUT"); // USD per million output tokens
+        if (pin == null || pout == null) {
+            System.out.println("Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.");
+            return;
+        }
+        double cost = s.inputTokens() / 1e6 * Double.parseDouble(pin)
+                + s.outputTokens() / 1e6 * Double.parseDouble(pout);
+        System.out.printf("Estimated cost: $%.4f%n", cost);
+    }
+
+    private static void writeResults(String model, Summary s, List<CaseOutcome> outcomes) throws Exception {
+        Map<String, Object> doc = new LinkedHashMap<>();
+        doc.put("timestamp", Instant.now().toString());
+        doc.put("model", model);
+        doc.put("promptVersion", PromptBuilder.VERSION);
+        doc.put("correct", s.correct());
+        doc.put("scored", s.scored());
+        doc.put("accuracy", s.accuracy());
+        doc.put("unsafe", s.unsafe());
+        doc.put("errored", s.errored());
+        doc.put("outcomes", outcomes);
+
+        Path dir = Path.of("results");
+        Files.createDirectories(dir);
+        Path file = dir.resolve("eval-" + Instant.now().toString().replace(':', '-') + ".json");
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(file.toFile(), doc);
+        System.out.println("Saved " + file);
+    }
+}

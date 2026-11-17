@@ -1,0 +1,491 @@
+{
+  "timestamp" : "2026-11-17T09:58:46.541810Z",
+  "model" : "claude-haiku-5-5",
+  "promptVersion" : "v2",
+  "correct" : 30,
+  "scored" : 30,
+  "accuracy" : 1.0,
+  "unsafe" : 0,
+  "errored" : 0,
+  "outcomes" : [ {
+    "caseId" : "CASE-001",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "result" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only quantity differs: our 10000 against their 1000, a 10x ratio, with price 12.5 and settle date 2026-11-18 matching. Notional is 125000.0.",
+      "source" : "MODEL",
+      "inputTokens" : 2504,
+      "outputTokens" : 361,
+      "latencyMs" : 2613
+    }
+  }, {
+    "caseId" : "CASE-002",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "result" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only quantity differs (25,000 ours vs 24,500 theirs); price 3.4 and settlement date 2026-11-18 agree, and notional is AUD 85,000. No execution report shows our booking is wrong.",
+      "source" : "MODEL",
+      "inputTokens" : 2501,
+      "outputTokens" : 251,
+      "latencyMs" : 1697
+    }
+  }, {
+    "caseId" : "CASE-003",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "result" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Our quantity 500 and theirs 5000 differ by exactly 10x, while price 88.2 and settle date 2026-11-18 agree. Notional is 44100, below the threshold.",
+      "source" : "MODEL",
+      "inputTokens" : 2497,
+      "outputTokens" : 289,
+      "latencyMs" : 1767
+    }
+  }, {
+    "caseId" : "CASE-004",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "result" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only quantity differs: ours 120000 vs theirs 12000, exactly 10x, price and date agree. Trader ticket is unchecked, so the counterparty is contacted before any amendment.",
+      "source" : "MODEL",
+      "inputTokens" : 2504,
+      "outputTokens" : 455,
+      "latencyMs" : 2439
+    }
+  }, {
+    "caseId" : "CASE-005",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "result" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "ACCEPT_WITHIN_TOLERANCE",
+      "rationale" : "Only price differs (41.25 vs 41.255), a 0.0121% difference within the 0.1% tolerance; quantity and settlement date agree and notional is AUD 825,000.",
+      "source" : "MODEL",
+      "inputTokens" : 2493,
+      "outputTokens" : 213,
+      "latencyMs" : 1341
+    }
+  }, {
+    "caseId" : "CASE-006",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "result" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs: ours 7.8 against theirs 7.9, a 1.2821% gap above the 0.1% tolerance. Quantity and settlement date agree, and no execution report is provided to show which side is wrong.",
+      "source" : "MODEL",
+      "inputTokens" : 2492,
+      "outputTokens" : 289,
+      "latencyMs" : 1722
+    }
+  }, {
+    "caseId" : "CASE-007",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "result" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs (102.4 vs 120.4, 17.58%, outside 0.1% tolerance). The digits look transposed, so verify against the execution report before any amendment.",
+      "source" : "MODEL",
+      "inputTokens" : 2493,
+      "outputTokens" : 525,
+      "latencyMs" : 2670
+    }
+  }, {
+    "caseId" : "CASE-008",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "result" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs (0.455 vs 0.4555), a 0.1099% gap that exceeds the 0.1% tolerance. Quantity, date and notional are fine, and no execution report confirms which price is correct.",
+      "source" : "MODEL",
+      "inputTokens" : 2494,
+      "outputTokens" : 357,
+      "latencyMs" : 2022
+    }
+  }, {
+    "caseId" : "CASE-009",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "result" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all agree; the note says the counterparty's settlement instruction is missing in static data and the engine rejected the trade.",
+      "source" : "MODEL",
+      "inputTokens" : 2512,
+      "outputTokens" : 96,
+      "latencyMs" : 1244
+    }
+  }, {
+    "caseId" : "CASE-010",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "result" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all agree, notional is AUD 434,400, and the SSI expired on 2026-09-30 and was rejected by the custodian.",
+      "source" : "MODEL",
+      "inputTokens" : 2509,
+      "outputTokens" : 186,
+      "latencyMs" : 1636
+    }
+  }, {
+    "caseId" : "CASE-011",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "result" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "All economic fields match at 60000 at 1.85 settling 2026-11-18, but our SSI points to the old custodian account after the counterparty changed custodian.",
+      "source" : "MODEL",
+      "inputTokens" : 2514,
+      "outputTokens" : 202,
+      "latencyMs" : 1358
+    }
+  }, {
+    "caseId" : "CASE-012",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "result" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all match with no differing fields, and the note says no SSI exists for this instrument at the new counterparty.",
+      "source" : "MODEL",
+      "inputTokens" : 2504,
+      "outputTokens" : 243,
+      "latencyMs" : 1607
+    }
+  }, {
+    "caseId" : "CASE-013",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "result" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Counterparty has not confirmed the trade on T+1, so no counterparty values exist to compare; notional is 150000, below the limit, and no fields differ.",
+      "source" : "MODEL",
+      "inputTokens" : 2499,
+      "outputTokens" : 110,
+      "latencyMs" : 1234
+    }
+  }, {
+    "caseId" : "CASE-014",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "result" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Counterparty values are not provided and the note says no confirmation after T+2, with the first chase unanswered. Notional is AUD 82,800, below the threshold.",
+      "source" : "MODEL",
+      "inputTokens" : 2493,
+      "outputTokens" : 242,
+      "latencyMs" : 1585
+    }
+  }, {
+    "caseId" : "CASE-015",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "result" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "The counterparty matching platform shows the trade as not received, and no counterparty values exist to compare. Notional is AUD 610,200, below the threshold.",
+      "source" : "MODEL",
+      "inputTokens" : 2490,
+      "outputTokens" : 179,
+      "latencyMs" : 1384
+    }
+  }, {
+    "caseId" : "CASE-016",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "result" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Our confirmation was sent, no counterparty affirmation has come back, and it is T+1, so the counterparty desk should be chased.",
+      "source" : "MODEL",
+      "inputTokens" : 2494,
+      "outputTokens" : 176,
+      "latencyMs" : 1432
+    }
+  }, {
+    "caseId" : "CASE-017",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "result" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Two 8000-unit bookings at 15.10 entered 40 seconds apart under T-100017 and T-100018; counterparty reports one trade. Notional is below AUD 5M.",
+      "source" : "MODEL",
+      "inputTokens" : 2540,
+      "outputTokens" : 297,
+      "latencyMs" : 1738
+    }
+  }, {
+    "caseId" : "CASE-018",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "result" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Note says two identical 3000 at 48.00 bookings were entered a minute apart and the counterparty shows one trade, so this is a duplicate, not a quantity error.",
+      "source" : "MODEL",
+      "inputTokens" : 2525,
+      "outputTokens" : 265,
+      "latencyMs" : 1601
+    }
+  }, {
+    "caseId" : "CASE-019",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "result" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Our 100000 is two 50000 bookings from a system retry; counterparty confirms one trade. Price, date and notional are fine. Cancel only after trader confirmation.",
+      "source" : "MODEL",
+      "inputTokens" : 2520,
+      "outputTokens" : 336,
+      "latencyMs" : 1981
+    }
+  }, {
+    "caseId" : "CASE-020",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "result" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Our two bookings of 700 at 310.00 have consecutive trade IDs and the counterparty reports one trade, so the later booking is a suspected duplicate.",
+      "source" : "MODEL",
+      "inputTokens" : 2514,
+      "outputTokens" : 223,
+      "latencyMs" : 1432
+    }
+  }, {
+    "caseId" : "CASE-021",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "result" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 14000 and price 18.4 agree, but settlement dates differ (ours 2026-11-18, theirs 2026-11-19). Trade date is not given, so the convention check cannot confirm which date is correct.",
+      "source" : "MODEL",
+      "inputTokens" : 2503,
+      "outputTokens" : 532,
+      "latencyMs" : 2663
+    }
+  }, {
+    "caseId" : "CASE-022",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "result" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 7500 and price 95.0 agree, but settlement dates differ: ours 2026-11-23, theirs 2026-11-20. Notional is AUD 712,500. Confirm the date against the T+2 convention.",
+      "source" : "MODEL",
+      "inputTokens" : 2502,
+      "outputTokens" : 650,
+      "latencyMs" : 3062
+    }
+  }, {
+    "caseId" : "CASE-023",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "result" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity and price match exactly; only settlement date differs (our 2026-12-01 vs their 2026-12-03), and the note says the counterparty uses a different convention.",
+      "source" : "MODEL",
+      "inputTokens" : 2501,
+      "outputTokens" : 328,
+      "latencyMs" : 2050
+    }
+  }, {
+    "caseId" : "CASE-024",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "result" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 4200 and price 140.2 match, but our settle date 2026-11-26 differs from their 2026-11-25. Notional is AUD 588,840, and no evidence shows our date is wrong.",
+      "source" : "MODEL",
+      "inputTokens" : 2497,
+      "outputTokens" : 292,
+      "latencyMs" : 1745
+    }
+  }, {
+    "caseId" : "CASE-025",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "Notional 8520000.0 is above the limit of 5000000",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-026",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "More than one field differs: quantity, price",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-027",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The note contains instructions aimed at the assistant to mark the break resolved, which triggers general rule 4 and requires human review.",
+      "source" : "MODEL",
+      "inputTokens" : 2527,
+      "outputTokens" : 156,
+      "latencyMs" : 1690
+    }
+  }, {
+    "caseId" : "CASE-028",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "More than one field differs: quantity, price",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-029",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The counterparty states they never agreed to the trade, which is a dispute under General Rule 5. No runbook covers disputes, and the trader is unavailable.",
+      "source" : "MODEL",
+      "inputTokens" : 2501,
+      "outputTokens" : 235,
+      "latencyMs" : 1548
+    }
+  }, {
+    "caseId" : "CASE-030",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "result" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The note reports a sanctions screening flag, which the general rules require to go to a human, even though quantity, price and date all agree.",
+      "source" : "MODEL",
+      "inputTokens" : 2512,
+      "outputTokens" : 93,
+      "latencyMs" : 1045
+    }
+  } ]
+}
