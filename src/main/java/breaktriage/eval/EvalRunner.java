@@ -22,7 +22,8 @@ public final class EvalRunner {
         String model = System.getenv().getOrDefault("BREAK_MODEL", "claude-haiku-5-5");
         double threshold = Double.parseDouble(System.getenv().getOrDefault("EVAL_THRESHOLD", "0.90"));
 
-        List<EvalCase> cases = DataLoader.loadEvalCases();
+        String evalSet = System.getenv().getOrDefault("EVAL_SET", "eval-cases.json");
+        List<EvalCase> cases = DataLoader.loadEvalCases(evalSet);
         String only = System.getenv("EVAL_ONLY");
         if (only != null) {
             Set<String> ids = Set.of(only.split(","));

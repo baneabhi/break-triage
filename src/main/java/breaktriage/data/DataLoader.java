@@ -22,7 +22,11 @@ public final class DataLoader {
     private DataLoader() {}
 
     public static List<EvalCase> loadEvalCases() throws IOException {
-        try (InputStream in = open("/data/eval-cases.json")) {
+        return loadEvalCases("eval-cases.json");
+    }
+
+    public static List<EvalCase> loadEvalCases(String fileName) throws IOException {
+        try (InputStream in = open("/data/" + fileName)) {
             return MAPPER.readValue(in, new TypeReference<List<EvalCase>>() {});
         }
     }
