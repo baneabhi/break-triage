@@ -1,0 +1,61 @@
+Model: claude-haiku-5-5   Prompt: v2   Draft prompt: d2   Thinking: default
+Cases: 12 (API errors: 0, scored: 12)
+Accuracy: 12/12 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=1, MODEL=11}
+Tokens: in=27553 out=3305   avg latency per call: 1858 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=6, SKIPPED=6}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=2424 out=2360   avg latency per draft call: 2185 ms
+
+  --- HELD-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement quantity mismatch on trade T-200001 (TST101)
+Dear Hazel Securities Operations,
+
+We have a quantity mismatch on trade T-200001 in TST101, which we bought. Our record shows 3500, while your record shows 3050. The price (27.6) and settlement date (2026-11-18) agree on both sides.
+
+Please check your record against ours and confirm the correct quantity.
+
+Regards,
+Settlement Operations
+
+  --- HELD-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-200003: quantity mismatch
+Dear Juniper Markets Operations,
+
+We have a settlement break on trade T-200003 in TST103, where we bought. The quantity on our record does not match yours. We show 250000, while your record shows 25000. The price (20.0) and settlement date (2026-11-18) agree.
+
+Please check your record against ours and confirm the correct quantity.
+
+Regards,
+Settlement Operations
+
+  --- HELD-006 (MISSING_SSI) ---
+  Subject: Trade T-200006 (TST106): request for current standing settlement instructions
+Dear Maple Trading Operations Desk,
+
+We are writing about trade T-200006 in TST106. We bought 9500 at 73.25, with settlement on 2026-11-18. Our quantity, price and settlement date match yours.
+
+To settle this trade, we need your current standing settlement instructions. Please send them to us at your earliest convenience.
+
+Thank you.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      2/2
+  PRICE_MISMATCH         2/2
+  MISSING_SSI            1/1
+  UNCONFIRMED_TRADE      1/1
+  DUPLICATE_TRADE        1/1
+  SETTLE_DATE_MISMATCH   1/1
+  NEEDS_HUMAN            4/4
+
+Failures:
+Saved results/eval-2026-11-19T23-27-05.959830Z.json
+
+RESULT: PASS

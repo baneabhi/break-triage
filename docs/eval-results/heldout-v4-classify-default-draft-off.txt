@@ -1,0 +1,65 @@
+Model: claude-haiku-5-5   Prompt: v4   Draft prompt: d2   Thinking: classify=default, draft=off
+Cases: 12 (API errors: 0, scored: 12)
+Accuracy: 12/12 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=1, MODEL=11}
+Tokens: in=28202 out=3339   avg latency per call: 2009 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=6, SKIPPED=6}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=2418 out=1167   avg latency per draft call: 1443 ms
+
+  --- HELD-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-200001 (TST101) - quantity mismatch
+Dear Hazel Securities Operations,
+
+We are writing about trade T-200001 in TST101, which we bought at a price of 27.6 with settlement date 2026-11-18. The price and settlement date match on both sides, but the quantity does not. Our record shows 3500, while your record shows 3050.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Thank you for your assistance.
+
+Regards,
+Settlement Operations
+
+  --- HELD-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-200003 (TST103) - quantity mismatch
+Dear Juniper Markets Operations,
+
+We have identified a settlement break on trade T-200003 in instrument TST103, where we bought. Our record shows a quantity of 250,000, while your record shows 25,000. Prices (20.0) and settlement date (2026-11-18) match on both sides.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Thank you for your prompt attention.
+
+Regards,
+Settlement Operations
+
+  --- HELD-006 (MISSING_SSI) ---
+  Subject: Settlement break on trade T-200006 - request for standing settlement instructions
+Dear Maple Trading Operations,
+
+We are writing regarding trade T-200006 in TST106. We bought 9,500 units at 73.25, with settlement date 2026-11-18. Your side shows the same quantity, price and settlement date.
+
+To settle this trade, we need your current standing settlement instructions. Please send them to us at your earliest convenience.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      2/2
+  PRICE_MISMATCH         2/2
+  MISSING_SSI            1/1
+  UNCONFIRMED_TRADE      1/1
+  DUPLICATE_TRADE        1/1
+  SETTLE_DATE_MISMATCH   1/1
+  NEEDS_HUMAN            4/4
+
+Failures:
+Saved results/eval-2026-11-20T05-35-56.192992Z.json
+
+RESULT: PASS

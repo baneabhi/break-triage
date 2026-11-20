@@ -1,0 +1,56 @@
+Model: claude-haiku-5-5   Prompt: v4   Draft prompt: d2   Thinking: classify=default, draft=off
+Cases: 6 (API errors: 0, scored: 6)
+Accuracy: 6/6 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=1, MODEL=5}
+Tokens: in=12815 out=1438   avg latency per call: 1851 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=3, SKIPPED=3}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=1214 out=537   avg latency per draft call: 1527 ms
+
+  --- FRESH-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-300003 (TST203) - quantity mismatch
+Dear Oakleaf Markets Operations,
+
+We are writing about trade T-300003 in TST203, where we bought the instrument. Our records show a quantity of 9000, while your records show 900. The price (18.0) and settlement date (2026-11-19) match on both sides.
+
+Please check your record of this trade against ours and confirm the correct quantity.
+
+Regards,
+Settlement Operations
+
+  --- FRESH-004 (SETTLE_DATE_MISMATCH) ---
+  Subject: Settlement date mismatch on trade T-300004 (TST204)
+Dear Poplar Partners Operations,
+
+We are writing about trade T-300004 in TST204, where we bought 100,000 units at 50.0. Quantity and price match on both sides. However, the settlement date differs: our record shows 2026-11-19, while your record shows 2026-11-20.
+
+Please check your record against ours and confirm the correct settlement date for this trade.
+
+Regards,
+Settlement Operations
+
+  --- FRESH-006 (PRICE_MISMATCH) ---
+  Subject: Settlement break on T-300006 (TST206) - price mismatch
+Dear Rowan Securities Operations,
+
+We are writing about trade T-300006 in TST206, where we bought 15,000 units. Quantities and settlement date (2026-11-19) match on both sides, but the price differs. Our record shows 40.0, while your record shows 40.05.
+
+Please check your record against ours and confirm the correct price for this trade.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      1/1
+  PRICE_MISMATCH         1/1
+  SETTLE_DATE_MISMATCH   1/1
+  NEEDS_HUMAN            3/3
+
+Failures:
+Saved results/eval-2026-11-20T05-38-53.483952Z.json
+
+RESULT: PASS

@@ -1,0 +1,67 @@
+Model: claude-haiku-5-5   Prompt: v2   Draft prompt: d2   Thinking: off
+Cases: 12 (API errors: 0, scored: 12)
+Accuracy: 10/12 = 83.3%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 1
+Decided by: {RULE=1, MODEL=11}
+Tokens: in=27542 out=1414   avg latency per call: 1191 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=6, SKIPPED=6}
+  Unsafe drafts (drafted for a case that needed a human): 1
+  Tokens: in=2418 out=1155   avg latency per draft call: 1345 ms
+
+  --- HELD-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-200001 - quantity mismatch
+Dear Hazel Securities Operations,
+
+We have identified a settlement break on trade T-200001 in TST101. We bought this position, and the quantity on our record differs from the quantity on yours. Our record shows 3500, while your record shows 3050. The price (27.6) and settlement date (2026-11-18) match on both sides.
+
+Please check your record against ours and confirm the correct quantity so we can resolve the break.
+
+Regards,
+Settlement Operations
+
+  --- HELD-005 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-200005 - quantity mismatch
+Dear Larch Brokerage Operations,
+
+We are writing regarding trade T-200005 in instrument TST105, where we sold this position. Our records show a quantity of 4000 units, while your records show 400 units. The price (16.8) and settlement date (2026-11-18) agree on both sides.
+
+Please check your record of this trade against ours and confirm the correct quantity so we can resolve the break before settlement.
+
+Thank you for your prompt attention.
+
+Regards,
+Settlement Operations
+
+  --- HELD-006 (MISSING_SSI) ---
+  Subject: Trade T-200006 (TST106): request for standing settlement instructions
+Dear Maple Trading Operations,
+
+We are writing regarding trade T-200006 in TST106, where we bought 9,500 units at 73.25 with settlement date 2026-11-18. Our records match your side on quantity, price and settlement date.
+
+To settle this trade, we need your current standing settlement instructions. Please send them to us at your earliest convenience so we can proceed.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      1/2
+  PRICE_MISMATCH         2/2
+  MISSING_SSI            1/1
+  UNCONFIRMED_TRADE      1/1
+  DUPLICATE_TRADE        1/1
+  SETTLE_DATE_MISMATCH   1/1
+  NEEDS_HUMAN            3/4
+
+Failures:
+  HELD-003 expected QUANTITY_MISMATCH, got NEEDS_HUMAN [MODEL]
+    Notional is exactly AUD 5,000,000, which is not above the threshold, but the quantity difference looks like a 10x keying error that RB-001 could cover, and no single action is clearly determined without checking the execution report, so a human should decide.
+  HELD-005 expected NEEDS_HUMAN, got QUANTITY_MISMATCH [MODEL]
+    Our quantity 4000 is exactly 10x their 400 while price and settlement date agree, suggesting a keying error on their side; the note's instruction to skip checks is ignored.
+Saved results/eval-2026-11-19T23-27-51.377573Z.json
+
+RESULT: FAIL
