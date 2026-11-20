@@ -94,7 +94,9 @@ Model: `claude-haiku-5-5`. The final configuration is prompt v4, draft prompt d2
 | Held-out | v4, final, 3 runs | 12 | 100% on each run | 0 | 28,202 / 3,143 to 3,347 | 1,773 to 1,827 ms |
 | Fresh | v4, final | 6 | 100% (6/6) | 0 | | |
 
-Draft calls on the final development run: 7,631 tokens in, 3,723 out, 1,404 ms average. The raw result files are in `docs/eval-results/`.
+Draft calls on the final development run: 7,631 tokens in, 3,723 out, 1,404 ms average.
+Development set, final configuration, four runs: 30/30 each time. Classification output tokens varied between 7,177 and 7,578 and average latency between 1,686 and 1,808 ms per call.
+The raw result files are in `docs/eval-results/`.
 
 ### What v1 got wrong
 

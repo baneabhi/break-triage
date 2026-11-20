@@ -1,0 +1,61 @@
+Model: claude-haiku-5-5   Prompt: v4   Draft prompt: d2   Thinking: classify=default, draft=off
+Cases: 30 (API errors: 0, scored: 30)
+Accuracy: 30/30 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=3, MODEL=27}
+Tokens: in=69228 out=7578   avg latency per call: 1808 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=19, SKIPPED=11}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=7631 out=3646   avg latency per draft call: 1412 ms
+
+  --- CASE-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100001 (TST001) - quantity mismatch
+Dear Alder Securities Operations,
+
+We are writing about trade T-100001 in TST001, where we bought. Our record shows a quantity of 10000, while your record shows 1000. The price (12.5) and settlement date (2026-11-18) agree on both sides.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Regards,
+Settlement Operations
+
+  --- CASE-002 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-100002 (TST002) - quantity mismatch
+Dear Birch Capital Operations,
+
+We are writing about trade T-100002 in instrument TST002, where we sold the position. Our records show a quantity of 25000, while your records show 24500. The price (3.4) and settlement date (2026-11-18) match on both sides.
+
+Please check your record of this trade against ours and confirm the correct quantity so we can resolve the break before settlement.
+
+Regards,
+Settlement Operations
+
+  --- CASE-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-100003 - quantity mismatch
+Dear Cedar Markets Operations,
+
+We have identified a settlement break on trade T-100003 (instrument TST003), where we bought the securities at 88.2 with settlement on 2026-11-18.
+
+Our record shows a quantity of 500, while your record shows 5000. The prices and settlement dates match.
+
+Please check your record of this trade against ours and confirm the correct quantity.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      4/4
+  PRICE_MISMATCH         4/4
+  MISSING_SSI            4/4
+  UNCONFIRMED_TRADE      4/4
+  DUPLICATE_TRADE        4/4
+  SETTLE_DATE_MISMATCH   4/4
+  NEEDS_HUMAN            6/6
+
+Failures:
+Saved results/eval-2026-11-20T05-54-00.659753Z.json
+
+RESULT: PASS

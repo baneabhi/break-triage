@@ -1,0 +1,61 @@
+Model: claude-haiku-5-5   Prompt: v4   Draft prompt: d2   Thinking: classify=default, draft=off
+Cases: 30 (API errors: 0, scored: 30)
+Accuracy: 30/30 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=3, MODEL=27}
+Tokens: in=69228 out=7355   avg latency per call: 1760 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=19, SKIPPED=11}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=7631 out=3752   avg latency per draft call: 1438 ms
+
+  --- CASE-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100001 - quantity mismatch
+Dear Alder Securities Operations,
+
+We are writing about trade T-100001 in TST001, where we bought the instrument. Our records show a quantity of 10000 at a price of 12.5, with settlement on 2026-11-18. Your records show a quantity of 1000 at the same price and settlement date.
+
+The quantities do not match. Please check your record against ours and confirm the correct quantity for this trade.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+  --- CASE-002 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-100002 (TST002) - quantity mismatch
+Dear Birch Capital Operations,
+
+We are writing about trade T-100002 in instrument TST002, where we sold this position. Our records show a quantity of 25,000, while your records show 24,500. The price (3.4) and settlement date (2026-11-18) agree on both sides.
+
+Could you please check your record of this trade against ours and confirm the correct quantity? We would appreciate your response so that we can resolve the break before settlement.
+
+Regards,
+Settlement Operations
+
+  --- CASE-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100003 (TST003) - quantity mismatch
+Dear Cedar Markets Operations,
+
+We have identified a settlement break on trade T-100003 in instrument TST003, where we bought the position. Our record shows a quantity of 500, while your record shows 5000. Prices (88.2) and settlement date (2026-11-18) agree on both sides.
+
+Could you please check your record of this trade against ours and confirm the correct quantity? We would appreciate your response so we can resolve the break before settlement.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      4/4
+  PRICE_MISMATCH         4/4
+  MISSING_SSI            4/4
+  UNCONFIRMED_TRADE      4/4
+  DUPLICATE_TRADE        4/4
+  SETTLE_DATE_MISMATCH   4/4
+  NEEDS_HUMAN            6/6
+
+Failures:
+Saved results/eval-2026-11-20T05-51-27.080391Z.json
+
+RESULT: PASS

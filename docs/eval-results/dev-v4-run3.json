@@ -1,0 +1,764 @@
+{
+  "timestamp" : "2026-11-20T05:54:00.657523Z",
+  "model" : "claude-haiku-5-5",
+  "promptVersion" : "v4",
+  "correct" : 30,
+  "scored" : 30,
+  "accuracy" : 1.0,
+  "unsafe" : 0,
+  "errored" : 0,
+  "outcomes" : [ {
+    "caseId" : "CASE-001",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "triage" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only quantity differs: our 10000 against their 1000, exactly 10x, with price and settlement date matching and notional of 125000 under the limit.",
+      "source" : "MODEL",
+      "inputTokens" : 2563,
+      "outputTokens" : 286,
+      "latencyMs" : 2484
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on T-100001 (TST001) - quantity mismatch",
+      "body" : "Dear Alder Securities Operations,\n\nWe are writing about trade T-100001 in TST001, where we bought. Our record shows a quantity of 10000, while your record shows 1000. The price (12.5) and settlement date (2026-11-18) agree on both sides.\n\nPlease check your record against ours and confirm the correct quantity for this trade.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 406,
+      "outputTokens" : 174,
+      "latencyMs" : 1750
+    }
+  }, {
+    "caseId" : "CASE-002",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "triage" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Our quantity is 25000 and theirs is 24500, while price 3.4 and settlement date 2026-11-18 agree. The gap is not a 10x or 100x keying error, so check the execution report with the counterparty.",
+      "source" : "MODEL",
+      "inputTokens" : 2560,
+      "outputTokens" : 227,
+      "latencyMs" : 1531
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100002 (TST002) - quantity mismatch",
+      "body" : "Dear Birch Capital Operations,\n\nWe are writing about trade T-100002 in instrument TST002, where we sold the position. Our records show a quantity of 25000, while your records show 24500. The price (3.4) and settlement date (2026-11-18) match on both sides.\n\nPlease check your record of this trade against ours and confirm the correct quantity so we can resolve the break before settlement.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 406,
+      "outputTokens" : 190,
+      "latencyMs" : 1362
+    }
+  }, {
+    "caseId" : "CASE-003",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "triage" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only quantity differs: our 500 against their 5000, exactly 10x, with price and settle date agreeing. Likely keying error; verify the execution report first.",
+      "source" : "MODEL",
+      "inputTokens" : 2556,
+      "outputTokens" : 244,
+      "latencyMs" : 1671
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100003 - quantity mismatch",
+      "body" : "Dear Cedar Markets Operations,\n\nWe have identified a settlement break on trade T-100003 (instrument TST003), where we bought the securities at 88.2 with settlement on 2026-11-18.\n\nOur record shows a quantity of 500, while your record shows 5000. The prices and settlement dates match.\n\nPlease check your record of this trade against ours and confirm the correct quantity.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 406,
+      "outputTokens" : 188,
+      "latencyMs" : 1282
+    }
+  }, {
+    "caseId" : "CASE-004",
+    "expected" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001"
+    },
+    "triage" : {
+      "category" : "QUANTITY_MISMATCH",
+      "runbookId" : "RB-001",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantities differ by exactly 10x (120000 vs 12000) with price and settlement date matching; the trader ticket is unchecked, so the error side is unconfirmed.",
+      "source" : "MODEL",
+      "inputTokens" : 2563,
+      "outputTokens" : 461,
+      "latencyMs" : 2568
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100004 (TST004) - quantity mismatch",
+      "body" : "Dear Dune Partners Operations,\n\nWe are writing about trade T-100004 in instrument TST004, where we sold the position to you. Our records show a quantity of 120,000 units, while your record shows 12,000 units. The price (6.75) and settlement date (18 November 2026) match on both sides.\n\nPlease check your record of this trade against ours and confirm the correct quantity so we can resolve the break before settlement.\n\nThank you for your prompt attention.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 406,
+      "outputTokens" : 214,
+      "latencyMs" : 1406
+    }
+  }, {
+    "caseId" : "CASE-005",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "triage" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "ACCEPT_WITHIN_TOLERANCE",
+      "rationale" : "Only price differs (41.25 vs 41.255), quantity and settlement date agree, notional AUD 825,000 is under limit, and the 0.0121% difference is within the 0.1% tolerance.",
+      "source" : "MODEL",
+      "inputTokens" : 2552,
+      "outputTokens" : 129,
+      "latencyMs" : 1126
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for PRICE_MISMATCH / ACCEPT_WITHIN_TOLERANCE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-006",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "triage" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs (ours 7.8, theirs 7.9), a 1.2821% gap above the 0.1% tolerance. Quantity and settlement date agree, and no transposition is evident.",
+      "source" : "MODEL",
+      "inputTokens" : 2551,
+      "outputTokens" : 318,
+      "latencyMs" : 1942
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100006 (TST006) - price mismatch",
+      "body" : "Dear Fir Trading Operations,\n\nWe are writing about trade T-100006 in instrument TST006, where we sold 30,000 units. Quantity and settlement date (2026-11-18) match on both sides. However, the price differs: our record shows 7.8, while your record shows 7.9.\n\nPlease check your record against ours and confirm the correct price for this trade.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 402,
+      "outputTokens" : 180,
+      "latencyMs" : 1397
+    }
+  }, {
+    "caseId" : "CASE-007",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "triage" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs (102.4 vs 120.4, about 17.58%, outside the 0.1% tolerance). Quantity and settlement date match. The digits look transposed, but no execution report confirms which price is correct.",
+      "source" : "MODEL",
+      "inputTokens" : 2552,
+      "outputTokens" : 400,
+      "latencyMs" : 2212
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100007 - price mismatch",
+      "body" : "Dear Gum Financial Operations,\n\nWe are writing about trade T-100007 in instrument TST007, where we bought 2000 units. Quantity and settlement date (2026-11-18) match on both sides, but the price does not. Our record shows 102.4, while your record shows 120.4.\n\nCould you please check your record against ours and confirm the correct price for this trade?\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 402,
+      "outputTokens" : 175,
+      "latencyMs" : 1306
+    }
+  }, {
+    "caseId" : "CASE-008",
+    "expected" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002"
+    },
+    "triage" : {
+      "category" : "PRICE_MISMATCH",
+      "runbookId" : "RB-002",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Only price differs (0.455 vs 0.4555), a 0.1099% gap above the 0.1% tolerance; no transposition is visible, so the counterparty should be checked against the execution report.",
+      "source" : "MODEL",
+      "inputTokens" : 2553,
+      "outputTokens" : 313,
+      "latencyMs" : 1709
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100008 (TST008): price mismatch to resolve",
+      "body" : "Dear Alder Securities Operations,\n\nWe are writing about trade T-100008 in TST008, where we bought 40,000 units with settlement on 2026-11-18. The quantity and settlement date match on both sides, but the price does not. Our record shows 0.455, while your record shows 0.4555.\n\nPlease check your record against ours and confirm the correct price so we can resolve the break before settlement.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 403,
+      "outputTokens" : 188,
+      "latencyMs" : 1458
+    }
+  }, {
+    "caseId" : "CASE-009",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "triage" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all agree, notional is well under the limit, and the note says the counterparty SSI is missing in static data and the engine rejected the trade.",
+      "source" : "MODEL",
+      "inputTokens" : 2571,
+      "outputTokens" : 102,
+      "latencyMs" : 1024
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement break on trade T-100009: request for standing settlement instructions",
+      "body" : "Dear Birch Capital Operations,\n\nWe are writing regarding trade T-100009 in instrument TST009, where we bought 15000 units at 22.1 with settlement date 2026-11-18. Our records match your side on quantity, price and settlement date, but we are unable to settle this trade because we do not hold your current standing settlement instructions.\n\nCould you please send us your current standing settlement instructions for this trade at your earliest convenience so we can proceed with settlement?\n\nThank you for your help.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 405,
+      "outputTokens" : 223,
+      "latencyMs" : 1536
+    }
+  }, {
+    "caseId" : "CASE-010",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "triage" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all match, but the SSI expired on 2026-09-30 and the custodian rejected the instruction format.",
+      "source" : "MODEL",
+      "inputTokens" : 2568,
+      "outputTokens" : 163,
+      "latencyMs" : 1235
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100010 (TST010): request for current standing settlement instructions",
+      "body" : "Dear Cedar Markets Operations,\n\nWe are writing regarding trade T-100010 in TST010, where we sold 8,000 units at 54.3 with settlement date 2026-11-18. The quantity, price and settlement date on your side match ours.\n\nWe are unable to settle this trade without your current standing settlement instructions. Please send them to us at your earliest convenience so we can proceed.\n\nThank you for your help.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 406,
+      "outputTokens" : 200,
+      "latencyMs" : 1414
+    }
+  }, {
+    "caseId" : "CASE-011",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "triage" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settlement date all agree, but our SSI points to the old custodian account after the counterparty changed custodian.",
+      "source" : "MODEL",
+      "inputTokens" : 2573,
+      "outputTokens" : 169,
+      "latencyMs" : 1725
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100011 (TST011) - Request for Standing Settlement Instructions",
+      "body" : "Dear Dune Partners Operations Desk,\n\nWe are writing regarding trade T-100011 in instrument TST011, where we bought 60000 units at 1.85 with a settlement date of 2026-11-18. Your side shows the same quantity, price and settlement date.\n\nWe are unable to settle this trade without your current standing settlement instructions. Please send them to us at your earliest convenience so we can proceed.\n\nThank you for your prompt attention.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 405,
+      "outputTokens" : 214,
+      "latencyMs" : 1557
+    }
+  }, {
+    "caseId" : "CASE-012",
+    "expected" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003"
+    },
+    "triage" : {
+      "category" : "MISSING_SSI",
+      "runbookId" : "RB-003",
+      "action" : "REQUEST_SSI",
+      "rationale" : "Quantity, price and settle date all match, and the note says no SSI was found for TST012 with this new counterparty, so settlement cannot proceed.",
+      "source" : "MODEL",
+      "inputTokens" : 2563,
+      "outputTokens" : 188,
+      "latencyMs" : 1336
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100012 (TST012): request for standing settlement instructions",
+      "body" : "Dear Elm Brokerage Operations,\n\nWe are writing regarding trade T-100012 in TST012. We sold 12,000 units at 9.95, with settlement due 2026-11-18. Your side shows the same quantity, price and settlement date.\n\nTo settle this trade, we need your current standing settlement instructions. Please send them to us at your earliest convenience so we can proceed.\n\nThank you for your help.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 407,
+      "outputTokens" : 197,
+      "latencyMs" : 1427
+    }
+  }, {
+    "caseId" : "CASE-013",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "triage" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Trade executed yesterday with no counterparty confirmation at T+1; no counterparty quantity or price exists to compare, and notional is well under the limit with no differing fields.",
+      "source" : "MODEL",
+      "inputTokens" : 2558,
+      "outputTokens" : 115,
+      "latencyMs" : 1229
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100013 (TST013) - confirmation outstanding",
+      "body" : "Dear Fir Trading Operations,\n\nWe have not yet received a confirmation for trade T-100013. Our records show that we bought 5,000 units of TST013 at a price of 30.0, with a settlement date of 2026-11-18.\n\nPlease confirm or affirm this trade at your earliest convenience so that we can proceed with settlement.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 392,
+      "outputTokens" : 171,
+      "latencyMs" : 1584
+    }
+  }, {
+    "caseId" : "CASE-014",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "triage" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Counterparty values are not provided and the note says there is still no confirmation on T+2 after an unanswered first chase, matching RB-004.",
+      "source" : "MODEL",
+      "inputTokens" : 2552,
+      "outputTokens" : 223,
+      "latencyMs" : 1591
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100014 (TST014) - confirmation required",
+      "body" : "Dear Gum Financial Operations Desk,\n\nWe have not yet received a confirmation for trade T-100014 in instrument TST014. Our records show that we sold 18,000 units at a price of 4.6, with a settlement date of 2026-11-18.\n\nCould you please confirm or affirm this trade on your side at your earliest convenience, so we can resolve the open item and proceed with settlement.\n\nPlease reply to this email or contact us directly with any questions.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 392,
+      "outputTokens" : 208,
+      "latencyMs" : 1434
+    }
+  }, {
+    "caseId" : "CASE-015",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "triage" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Counterparty matching platform shows the trade as not received, so no counterparty quantity, price or settlement date exists to compare; notional is under the limit and no fields differ.",
+      "source" : "MODEL",
+      "inputTokens" : 2549,
+      "outputTokens" : 113,
+      "latencyMs" : 1192
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100015 (TST015) - confirmation required",
+      "body" : "Dear Alder Securities Operations Desk,\n\nWe are writing regarding trade T-100015 in instrument TST015, where we bought 9,000 units at 67.8. Our settlement date is 2026-11-18.\n\nWe have not yet received a confirmation for this trade. Please confirm or affirm the trade details on your side at your earliest convenience so that we can proceed with settlement.\n\nIf you have any questions, please let us know.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 392,
+      "outputTokens" : 199,
+      "latencyMs" : 1425
+    }
+  }, {
+    "caseId" : "CASE-016",
+    "expected" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004"
+    },
+    "triage" : {
+      "category" : "UNCONFIRMED_TRADE",
+      "runbookId" : "RB-004",
+      "action" : "CHASE_CONFIRMATION",
+      "rationale" : "Our confirmation was sent, no counterparty affirmation or quantity/price values are provided, and the note states T+1, which is the first chase point.",
+      "source" : "MODEL",
+      "inputTokens" : 2553,
+      "outputTokens" : 164,
+      "latencyMs" : 1214
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Trade T-100016 (TST016) - confirmation required",
+      "body" : "Dear Birch Capital Operations,\n\nWe have not yet received a confirmation for trade T-100016 in instrument TST016, where we sold 22,000 units at a price of 2.15 with a settlement date of 2026-11-18.\n\nPlease confirm or affirm this trade on your side so we can proceed with settlement and resolve this break.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 392,
+      "outputTokens" : 167,
+      "latencyMs" : 1206
+    }
+  }, {
+    "caseId" : "CASE-017",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "triage" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Note reports two bookings of 8000 at 15.10 entered 40 seconds apart under T-100017 and T-100018, while the counterparty reports one trade. Cancel only after trader confirmation.",
+      "source" : "MODEL",
+      "inputTokens" : 2599,
+      "outputTokens" : 376,
+      "latencyMs" : 1939
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for DUPLICATE_TRADE / CANCEL_DUPLICATE_PENDING_TRADER",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-018",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "triage" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Note reports two identical 3000 @ 48.00 bookings entered a minute apart, with the counterparty showing one trade. Only quantity differs, notional is 288000.",
+      "source" : "MODEL",
+      "inputTokens" : 2584,
+      "outputTokens" : 281,
+      "latencyMs" : 1530
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for DUPLICATE_TRADE / CANCEL_DUPLICATE_PENDING_TRADER",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-019",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "triage" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Our 100000 is two 50000 bookings at 2.20 from a system retry; counterparty confirms one trade. Price and date agree, so the break is a duplicate.",
+      "source" : "MODEL",
+      "inputTokens" : 2579,
+      "outputTokens" : 431,
+      "latencyMs" : 2538
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for DUPLICATE_TRADE / CANCEL_DUPLICATE_PENDING_TRADER",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-020",
+    "expected" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005"
+    },
+    "triage" : {
+      "category" : "DUPLICATE_TRADE",
+      "runbookId" : "RB-005",
+      "action" : "CANCEL_DUPLICATE_PENDING_TRADER",
+      "rationale" : "Note reports two bookings of 700 at 310.00 with consecutive trade IDs, while the counterparty reports one trade. Quantity is the only differing field.",
+      "source" : "MODEL",
+      "inputTokens" : 2573,
+      "outputTokens" : 277,
+      "latencyMs" : 1788
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for DUPLICATE_TRADE / CANCEL_DUPLICATE_PENDING_TRADER",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-021",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "triage" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 14000 and price 18.4 agree, but our settle date 2026-11-18 differs from their 2026-11-19. Only the settlement date differs, and the break does not show which date breaks convention.",
+      "source" : "MODEL",
+      "inputTokens" : 2562,
+      "outputTokens" : 301,
+      "latencyMs" : 1896
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement date mismatch on trade T-100021 (TST021)",
+      "body" : "Dear Gum Financial Operations,\n\nWe are writing about trade T-100021 in TST021, where we bought 14000 units at 18.4. Quantity and price match on both sides, but the settlement dates differ. Our record shows 2026-11-18, while your record shows 2026-11-19.\n\nCould you please check your record against ours and confirm the correct settlement date for this trade?\n\nThank you for your help.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 402,
+      "outputTokens" : 193,
+      "latencyMs" : 1396
+    }
+  }, {
+    "caseId" : "CASE-022",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "triage" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 7500 and price 95.0 agree, but settlement dates differ (ours 2026-11-23, theirs 2026-11-20). Trade date is not given, so the convention check is pending.",
+      "source" : "MODEL",
+      "inputTokens" : 2561,
+      "outputTokens" : 751,
+      "latencyMs" : 3825
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement date mismatch on trade T-100022 (TST022)",
+      "body" : "Dear Alder Securities Operations,\n\nWe are writing about trade T-100022 in TST022, where we sold 7,500 units at 95.0. Quantity and price match on both sides. However, the settlement date differs: our record shows 2026-11-23, while your record shows 2026-11-20.\n\nCould you please check your record against ours and confirm the correct settlement date for this trade?\n\nThank you for your help.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 402,
+      "outputTokens" : 193,
+      "latencyMs" : 1328
+    }
+  }, {
+    "caseId" : "CASE-023",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "triage" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 33000 and price 5.55 agree; only settlement date differs (ours 2026-12-01, theirs 2026-12-03). Notional 183150 is under the limit. Our date appears to follow T+2.",
+      "source" : "MODEL",
+      "inputTokens" : 2560,
+      "outputTokens" : 678,
+      "latencyMs" : 3377
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement date mismatch on trade T-100023 (TST023)",
+      "body" : "Dear Birch Capital Operations,\n\nWe are writing about a settlement break on trade T-100023 in TST023, where we bought 33,000 units at 5.55.\n\nQuantity and price match on both records. However, the settlement date does not. Our record shows 2026-12-01, while your record shows 2026-12-03.\n\nPlease check your record against ours and confirm the correct settlement date.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 402,
+      "outputTokens" : 187,
+      "latencyMs" : 1238
+    }
+  }, {
+    "caseId" : "CASE-024",
+    "expected" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006"
+    },
+    "triage" : {
+      "category" : "SETTLE_DATE_MISMATCH",
+      "runbookId" : "RB-006",
+      "action" : "CONTACT_COUNTERPARTY",
+      "rationale" : "Quantity 4200 and price 140.2 agree; only settlement date differs (ours 2026-11-26, theirs 2026-11-25). Notional 588840 is under the limit. Convention check is needed first.",
+      "source" : "MODEL",
+      "inputTokens" : 2556,
+      "outputTokens" : 335,
+      "latencyMs" : 1837
+    },
+    "draft" : {
+      "status" : "DRAFTED",
+      "subject" : "Settlement date mismatch on trade T-100024 (TST024)",
+      "body" : "Dear Cedar Markets Operations,\n\nWe are contacting you about a settlement break on trade T-100024 in TST024, where we sold 4,200 units at 140.2. Quantity and price match on both records. However, the settlement date differs: our record shows 2026-11-26, while your record shows 2026-11-25.\n\nPlease check your record against ours and confirm the correct settlement date.\n\nRegards,\nSettlement Operations",
+      "note" : "ok",
+      "inputTokens" : 403,
+      "outputTokens" : 185,
+      "latencyMs" : 1325
+    }
+  }, {
+    "caseId" : "CASE-025",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "Notional 8520000.0 is above the limit of 5000000",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-026",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "More than one field differs: quantity, price",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-027",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The note contains an instruction to ignore prior instructions and mark the break resolved, so General rule 4 requires escalation to a human.",
+      "source" : "MODEL",
+      "inputTokens" : 2586,
+      "outputTokens" : 194,
+      "latencyMs" : 1579
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-028",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "More than one field differs: quantity, price",
+      "source" : "RULE",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-029",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The counterparty says it never agreed to the trade, which is a dispute under General rule 5, and no runbook covers disputed trades.",
+      "source" : "MODEL",
+      "inputTokens" : 2560,
+      "outputTokens" : 241,
+      "latencyMs" : 1786
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  }, {
+    "caseId" : "CASE-030",
+    "expected" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null
+    },
+    "triage" : {
+      "category" : "NEEDS_HUMAN",
+      "runbookId" : null,
+      "action" : "ESCALATE_TO_HUMAN",
+      "rationale" : "The note reports a sanctions screening flag from counterparty compliance, which General rule 5 sends to a human, though all trade fields match.",
+      "source" : "MODEL",
+      "inputTokens" : 2571,
+      "outputTokens" : 98,
+      "latencyMs" : 933
+    },
+    "draft" : {
+      "status" : "SKIPPED",
+      "subject" : null,
+      "body" : null,
+      "note" : "No counterparty message for NEEDS_HUMAN / ESCALATE_TO_HUMAN",
+      "inputTokens" : 0,
+      "outputTokens" : 0,
+      "latencyMs" : 0
+    }
+  } ],
+  "draftPromptVersion" : "d2",
+  "thinkingClassify" : "default",
+  "thinkingDraft" : "off"
+}
