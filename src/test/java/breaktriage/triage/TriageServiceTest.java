@@ -81,4 +81,18 @@ class TriageServiceTest {
         assertEquals(DecisionSource.ERROR, r.source());
         assertEquals(Category.NEEDS_HUMAN, r.category());
     }
+
+    @Test
+    void missingActionIsRetriedThenEscalated() throws IOException {
+        AtomicInteger calls = new AtomicInteger();
+        LlmClient fake = (system, user) -> {
+            calls.incrementAndGet();
+            return new LlmResponse(
+                    "{\"category\":\"QUANTITY_MISMATCH\",\"runbookId\":\"RB-001\","
+                            + "\"rationale\":\"No action given.\"}", 100, 20, 5);
+        };
+        TriageResult r = new TriageService(fake).triage(input("CASE-001"));
+        assertEquals(2, calls.get());
+        assertEquals(DecisionSource.FALLBACK, r.source());
+    }
 }

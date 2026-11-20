@@ -84,6 +84,9 @@ public final class TriageService {
         if (a.category() == null) {
             throw new IllegalArgumentException("missing category");
         }
+        if (a.action() == null) {
+            throw new IllegalArgumentException("missing action");
+        }
         return a;
     }
 

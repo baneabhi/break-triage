@@ -8,6 +8,7 @@ import com.anthropic.errors.RateLimitException;
 import com.anthropic.models.messages.Message;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.models.messages.TextBlock;
+import com.anthropic.models.messages.ThinkingConfigDisabled;
 
 import java.time.Duration;
 import java.util.stream.Collectors;
@@ -22,16 +23,26 @@ public final class ClaudeClient implements LlmClient {
             
     private final String model;
 
-    public ClaudeClient(String model) { this.model = model; }
+    private final boolean thinkingOff;
+
+    public ClaudeClient(String model, boolean thinkingOff) {
+        this.model = model; 
+        this.thinkingOff = thinkingOff;
+    }
+
+    public ClaudeClient(String model) { this(model, false); }    
 
     @Override
     public LlmResponse complete(String system, String user) {
-        MessageCreateParams params = MessageCreateParams.builder()
+        MessageCreateParams.Builder builder = MessageCreateParams.builder()
                 .model(model)
                 .maxTokens(1024L)
                 .system(system)
-                .addUserMessage(user)
-                .build();
+                .addUserMessage(user);
+        if (thinkingOff) {
+            builder.thinking(ThinkingConfigDisabled.builder().build());
+        }
+        MessageCreateParams params = builder.build();
 
         long start = System.nanoTime();
         Message message;

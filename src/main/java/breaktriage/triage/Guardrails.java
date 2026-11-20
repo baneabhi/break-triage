@@ -15,7 +15,7 @@ public final class Guardrails {
 
     /** Returns a reason if the break must go to a human without asking the model. */
     public static Optional<String> mustEscalate(BreakRecord b) {
-        if (b.notional().compareTo(NOTIONAL_LIMIT) > 0) {
+        if (exceedsNotionalLimit(b)) {
             return Optional.of("Notional " + b.notional().toPlainString()
                     + " is above the limit of " + NOTIONAL_LIMIT.toPlainString());
         }
@@ -48,5 +48,13 @@ public final class Guardrails {
         return Optional.of(b.theirPrice().subtract(b.ourPrice()).abs()
                 .multiply(BigDecimal.valueOf(100))
                 .divide(b.ourPrice(), 4, RoundingMode.HALF_UP));
+    }
+    
+    public static boolean exceedsNotionalLimit(BreakRecord b) {
+        var notional = b.notional();
+        if (notional == null) {
+            return false;   // can't calculate it, so it can't exceed the limit
+        }
+        return (b.notional().compareTo(NOTIONAL_LIMIT) > 0);
     }
 }

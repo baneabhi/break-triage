@@ -1,9 +1,13 @@
 package breaktriage.eval;
 
 import breaktriage.data.DataLoader;
+import breaktriage.draft.DraftPromptBuilder;
+import breaktriage.draft.DraftStatus;
+import breaktriage.draft.MessageDrafter;
 import breaktriage.llm.ClaudeClient;
 import breaktriage.model.Category;
 import breaktriage.model.EvalCase;
+import breaktriage.pipeline.TriagePipeline;
 import breaktriage.triage.PromptBuilder;
 import breaktriage.triage.TriageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,20 +24,35 @@ public final class EvalRunner {
 
     public static void main(String[] args) throws Exception {
         String model = System.getenv().getOrDefault("BREAK_MODEL", "claude-haiku-5-5");
+        String draftModel = System.getenv().getOrDefault("BREAK_DRAFT_MODEL", model);
         double threshold = Double.parseDouble(System.getenv().getOrDefault("EVAL_THRESHOLD", "0.90"));
-
+        boolean classifierThinkingOff = "off".equalsIgnoreCase(System.getenv("BREAK_THINKING"));
+        boolean draftThinkingOff = !"default".equalsIgnoreCase(System.getenv("BREAK_DRAFT_THINKING"));
         String evalSet = System.getenv().getOrDefault("EVAL_SET", "eval-cases.json");
+
+        RunSettings settings = new RunSettings(model, draftModel,
+                        classifierThinkingOff, draftThinkingOff, evalSet);
+
         List<EvalCase> cases = DataLoader.loadEvalCases(evalSet);
         String only = System.getenv("EVAL_ONLY");
         if (only != null) {
             Set<String> ids = Set.of(only.split(","));
             cases = cases.stream().filter(c -> ids.contains(c.id())).toList();
         }
-        TriageService service = new TriageService(new ClaudeClient(model));
-        List<CaseOutcome> outcomes = Evaluator.run(cases, service);
-        Summary s = Summary.of(outcomes);
 
-        System.out.printf("Model: %s   Prompt: %s%n", model, PromptBuilder.VERSION);
+        TriagePipeline pipeline = new TriagePipeline(
+            new TriageService(new ClaudeClient(settings.model(), settings.classifierThinkingOff())),
+            new MessageDrafter(new ClaudeClient(settings.draftModel(), settings.draftThinkingOff())));
+        List<PipelineOutcome> pipelineOutcomes = Evaluator.runPipeline(cases, pipeline);
+
+        List<CaseOutcome> outcomes = pipelineOutcomes.stream()
+            .map(PipelineOutcome::classification).toList();
+
+        Summary s = Summary.of(outcomes);
+        DraftSummary ds = DraftSummary.of(pipelineOutcomes);
+
+        System.out.printf("Model: %s   Prompt: %s   Draft prompt: %s   Thinking: classify=%s, draft=%s%n",
+                        model, PromptBuilder.VERSION, DraftPromptBuilder.VERSION,  settings.classifierThinking(), settings.draftThinking());
         System.out.printf("Cases: %d (API errors: %d, scored: %d)%n", s.total(), s.errored(), s.scored());
         System.out.printf("Accuracy: %d/%d = %.1f%%   (gate: %.0f%%)%n",
                 s.correct(), s.scored(), s.accuracy() * 100, threshold * 100);
@@ -41,7 +60,8 @@ public final class EvalRunner {
         System.out.printf("Decided by: %s%n", s.bySource());
         System.out.printf("Tokens: in=%d out=%d   avg latency per call: %.0f ms%n",
                 s.inputTokens(), s.outputTokens(), s.avgLatencyMs());
-        printCost(s);
+        printCost(s.inputTokens() + ds.inputTokens(), s.outputTokens() + ds.outputTokens());
+        printDrafts(ds, pipelineOutcomes);
 
         System.out.println("\nPer expected category:");
         Map<Category, int[]> byCategory = new EnumMap<>(Category.class);
@@ -61,30 +81,51 @@ public final class EvalRunner {
                     o.result().rationale());
         }
 
-        writeResults(model, s, outcomes);
+        writeResults(settings, s, pipelineOutcomes);
 
-        boolean pass = s.accuracy() >= threshold && s.unsafe() == 0 && s.errored() == 0;
+        boolean pass = s.accuracy() >= threshold && s.unsafe() == 0 && s.errored() == 0
+                && ds.unsafeDrafts() == 0 && ds.errors() == 0;
         System.out.println("\nRESULT: " + (pass ? "PASS" : "FAIL"));
         System.exit(pass ? 0 : 1);
     }
 
     /** Prices change, so they come from your environment instead of being hard-coded. */
-    private static void printCost(Summary s) {
+    private static void printCost(long in, long out) {
         String pin = System.getenv("BREAK_PRICE_IN");   // USD per million input tokens
         String pout = System.getenv("BREAK_PRICE_OUT"); // USD per million output tokens
         if (pin == null || pout == null) {
             System.out.println("Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.");
             return;
         }
-        double cost = s.inputTokens() / 1e6 * Double.parseDouble(pin)
-                + s.outputTokens() / 1e6 * Double.parseDouble(pout);
+        double cost = in / 1e6 * Double.parseDouble(pin)
+                + out / 1e6 * Double.parseDouble(pout);
         System.out.printf("Estimated cost: $%.4f%n", cost);
     }
 
-    private static void writeResults(String model, Summary s, List<CaseOutcome> outcomes) throws Exception {
+    private static void printDrafts(DraftSummary ds, List<PipelineOutcome> outcomes) {
+        System.out.println("\nDrafts:");
+        System.out.printf("  By status: %s%n", ds.byStatus());
+        System.out.printf("  Unsafe drafts (drafted for a case that needed a human): %d%n", ds.unsafeDrafts());
+        System.out.printf("  Tokens: in=%d out=%d   avg latency per draft call: %.0f ms%n",
+                ds.inputTokens(), ds.outputTokens(), ds.avgLatencyMs());
+
+        outcomes.stream()
+                .filter(o -> o.draft().status() == DraftStatus.DRAFTED)
+                .limit(3)
+                .forEach(o -> System.out.printf("%n  --- %s (%s) ---%n  Subject: %s%n%s%n",
+                        o.caseId(), o.triage().category(), o.draft().subject(), o.draft().body()));
+
+        outcomes.stream()
+                .filter(o -> o.draft().status() == DraftStatus.REJECTED
+                        || o.draft().status() == DraftStatus.ERROR)
+                .forEach(o -> System.out.printf("%n  %s draft %s: %s%n",
+                        o.caseId(), o.draft().status(), o.draft().note()));
+    }
+
+    private static void writeResults(RunSettings settings, Summary s, List<PipelineOutcome> outcomes ) throws Exception {
         Map<String, Object> doc = new LinkedHashMap<>();
         doc.put("timestamp", Instant.now().toString());
-        doc.put("model", model);
+        doc.put("model", settings.model());
         doc.put("promptVersion", PromptBuilder.VERSION);
         doc.put("correct", s.correct());
         doc.put("scored", s.scored());
@@ -92,11 +133,18 @@ public final class EvalRunner {
         doc.put("unsafe", s.unsafe());
         doc.put("errored", s.errored());
         doc.put("outcomes", outcomes);
+        doc.put("draftPromptVersion", DraftPromptBuilder.VERSION);
+        doc.put("thinkingClassify", settings.classifierThinking());
+        doc.put("thinkingDraft", settings.draftThinking());
 
         Path dir = Path.of("results");
         Files.createDirectories(dir);
         Path file = dir.resolve("eval-" + Instant.now().toString().replace(':', '-') + ".json");
         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(file.toFile(), doc);
         System.out.println("Saved " + file);
+    }
+
+    public static String thinkingMode() {
+        return "off".equalsIgnoreCase(System.getenv("BREAK_THINKING")) ? "off" : "default";
     }
 }
