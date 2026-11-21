@@ -126,6 +126,13 @@ I considered adding a code check for instruction-like phrases in the note and de
 
 The held-out set was meant to be unseen. Its failures (HELD-003, HELD-005) led to prompt and data changes, so it stopped being a clean test for those changes and is now closer to a second development set. The fresh set was written afterwards and was not used for tuning. Treat the fresh results as the honest check, and note it has only 6 cases.
 
+### Failure handling checks
+
+Two failure paths were checked against the live API:
+
+- **Wrong API key.** The run stops on the first call with the API's 401 `authentication_error`. A configuration mistake is not treated as an outage, and no results file is written.
+- **API unreachable.** With the client timeout set to 1 ms and no retries, all three cases tried returned `NEEDS_HUMAN` from source `ERROR`. The run reported 3 API errors and 0 scored cases, produced no drafts (all skipped), and exited with a failing result. Outages are counted separately from accuracy.
+
 ## Limitations
 
 - The data is synthetic and the runbooks are simplified, so the results say nothing about real operations data.
