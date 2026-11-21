@@ -1,5 +1,7 @@
 # break-triage
 
+[![CI](https://github.com/baneabhi/break-triage/actions/workflows/ci.yml/badge.svg)](https://github.com/baneabhi/break-triage/actions/workflows/ci.yml)
+
 An LLM-assisted triage tool for trade settlement breaks, with an evaluation harness. It is a small project built to show how to put a language model into an operations workflow safely: deterministic guardrails around the model, validated output, a second chained call that drafts a counterparty email, and quality measured with labelled test cases instead of by eye.
 
 All data is synthetic. The runbooks are simplified examples, not any firm's real procedures.
