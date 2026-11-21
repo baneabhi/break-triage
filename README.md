@@ -137,7 +137,7 @@ Two failure paths were checked against the live API:
 
 - The data is synthetic and the runbooks are simplified, so the results say nothing about real operations data.
 - The held-out and fresh sets are small (12 and 6 cases). With no failures in that few cases, the true error rate could still be fairly high, so read 100% as "no failures on a small check", not "reliable".
-- Most configurations were run once. The held-out set was repeated three times for the final configuration. The model is not deterministic, so scores can move by a case or two between runs.
+- Most configurations were run once. The development and held-out sets were each repeated for the final configuration (four and three runs). The model is not deterministic, so scores can move by a case or two between runs.
 - Injection resistance depends on the model reasoning correctly. It held with thinking on and failed with thinking off, and nothing in code catches a paraphrased injection. Only rules 1 and 2 are guaranteed by code.
 - The eval scores the category and runbook. Actions are validated against an allowed list but not compared with an expected action.
 - Draft quality is checked by code (trade ID, length, forbidden phrases, no invented numbers) and by reading the printed drafts. It is not scored automatically.
