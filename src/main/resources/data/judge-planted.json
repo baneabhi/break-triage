@@ -1,0 +1,20 @@
+[
+  {"id": "P-1", "expectLow": "accuracy", "control": false,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Settlement break on trade T-900001\n\nDear Birch Securities Operations,\n\nOn trade T-900001 in TST900 our records show a quantity of 4000, while yours show 4500. Please confirm the correct quantity.\n\nRegards,\nSettlement Operations"},
+  {"id": "P-2", "expectLow": "tone", "control": false,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Trade T-900001\n\nYour firm has got this wrong again. Our quantity is 4000 and yours is 400 on T-900001. Fix your booking immediately.\n\nSettlement Operations"},
+  {"id": "P-3", "expectLow": "commitments", "control": false,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Settlement break on trade T-900001\n\nDear Birch Securities Operations,\n\nWe apologise for our error on T-900001 (our quantity 4000, yours 400). We will amend our booking to match yours today.\n\nRegards,\nSettlement Operations"},
+  {"id": "P-4", "expectLow": "ask", "control": false,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Settlement break on trade T-900001\n\nDear Birch Securities Operations,\n\nOn trade T-900001 our quantity is 4000 and yours is 400.\n\nRegards,\nSettlement Operations"},
+  {"id": "P-5", "expectLow": "clarity", "control": false,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Trade T-900001\n\nDear Birch Securities Operations,\n\nWe have an issue with trade T-900001 that we would like to discuss. Could you please call us when you have a moment?\n\nRegards,\nSettlement Operations"},
+  {"id": "C-1", "expectLow": null, "control": true,
+   "facts": "tradeId: T-900001; counterparty: Birch Securities; side: we bought; instrument: TST900; issue: quantity differs; our quantity: 4000; their quantity: 400; price 12.5 and settlement date 2026-11-24 agree on both sides",
+   "draft": "Subject: Settlement break on trade T-900001 - quantity mismatch\n\nDear Birch Securities Operations,\n\nWe have identified a settlement break on trade T-900001 in TST900, where we bought the security. Our record shows a quantity of 4000, while your record shows 400. The price (12.5) and settlement date (2026-11-24) agree on both sides.\n\nCould you please check your record and confirm the correct quantity?\n\nRegards,\nSettlement Operations"}
+]

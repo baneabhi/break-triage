@@ -4,6 +4,7 @@ import breaktriage.data.DataLoader;
 import breaktriage.draft.DraftPromptBuilder;
 import breaktriage.draft.DraftStatus;
 import breaktriage.draft.MessageDrafter;
+import breaktriage.judge.DraftJudge;
 import breaktriage.llm.ClaudeClient;
 import breaktriage.model.Category;
 import breaktriage.model.EvalCase;
@@ -81,6 +82,13 @@ public final class EvalRunner {
                     o.result().rationale());
         }
 
+        if ("on".equalsIgnoreCase(System.getenv("EVAL_JUDGE"))) {
+            String judgeModel = System.getenv().getOrDefault("BREAK_JUDGE_MODEL", "claude-sonnet-5-5");
+            boolean judgeThinkingOff = !"default".equalsIgnoreCase(System.getenv("BREAK_JUDGE_THINKING"));
+            DraftJudge judge = new DraftJudge(new ClaudeClient(judgeModel, judgeThinkingOff));
+            EvalJudge.run(cases, pipelineOutcomes, judge).print();
+        }
+
         writeResults(settings, s, pipelineOutcomes);
 
         boolean pass = s.accuracy() >= threshold && s.unsafe() == 0 && s.errored() == 0
@@ -109,9 +117,11 @@ public final class EvalRunner {
         System.out.printf("  Tokens: in=%d out=%d   avg latency per draft call: %.0f ms%n",
                 ds.inputTokens(), ds.outputTokens(), ds.avgLatencyMs());
 
+        long draftPrintLimit = "on".equalsIgnoreCase(System.getenv("EVAL_JUDGE")) ? Long.MAX_VALUE : 3;
+
         outcomes.stream()
                 .filter(o -> o.draft().status() == DraftStatus.DRAFTED)
-                .limit(3)
+                .limit(draftPrintLimit)
                 .forEach(o -> System.out.printf("%n  --- %s (%s) ---%n  Subject: %s%n%s%n",
                         o.caseId(), o.triage().category(), o.draft().subject(), o.draft().body()));
 
