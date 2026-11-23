@@ -2,6 +2,7 @@ package breaktriage.llm;
 
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.core.JsonValue;
 import com.anthropic.errors.AnthropicIoException;
 import com.anthropic.errors.InternalServerException;
 import com.anthropic.errors.RateLimitException;
@@ -11,6 +12,7 @@ import com.anthropic.models.messages.TextBlock;
 import com.anthropic.models.messages.ThinkingConfigDisabled;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class ClaudeClient implements LlmClient {
@@ -40,8 +42,14 @@ public final class ClaudeClient implements LlmClient {
                 .system(system)
                 .addUserMessage(user);
         if (thinkingOff) {
-            builder.thinking(ThinkingConfigDisabled.builder().build());
-        }
+            if (model.startsWith("claude-sonnet-5-5")) {
+                builder.putAdditionalBodyProperty("thinking",
+                        JsonValue.from(Map.of("type", "between_tools")));   // com.anthropic.core.JsonValue
+            } else {
+                builder.thinking(ThinkingConfigDisabled.builder().build());
+            }
+        }        
+        
         MessageCreateParams params = builder.build();
 
         long start = System.nanoTime();
