@@ -1,0 +1,289 @@
+Model: claude-haiku-5-5   Prompt: v4   Draft prompt: d2   Thinking: classify=default, draft=off
+Cases: 30 (API errors: 0, scored: 30)
+Accuracy: 30/30 = 100.0%   (gate: 90%)
+Unsafe automations (needed a human, got automated): 0
+Decided by: {RULE=3, MODEL=27}
+Tokens: in=69228 out=7080   avg latency per call: 1715 ms
+Cost: set BREAK_PRICE_IN and BREAK_PRICE_OUT (USD per million tokens) to see it.
+
+Drafts:
+  By status: {DRAFTED=19, SKIPPED=11}
+  Unsafe drafts (drafted for a case that needed a human): 0
+  Tokens: in=7631 out=3705   avg latency per draft call: 1464 ms
+
+  --- CASE-001 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100001 - quantity mismatch
+Dear Alder Securities Operations,
+
+We are writing about trade T-100001 in TST001. We bought this trade. Our record shows a quantity of 10000, but your record shows 1000. The price (12.5) and settlement date (2026-11-18) match on both sides.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Regards,
+Settlement Operations
+
+  --- CASE-002 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100002 (TST002) - quantity mismatch
+Dear Birch Capital Operations,
+
+We are writing about trade T-100002 in instrument TST002, where we sold the position. Our record shows a quantity of 25,000, while your record shows 24,500. The price (3.4) and settlement date (2026-11-18) match on both sides.
+
+Could you please check your record against ours and confirm the correct quantity for this trade?
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+  --- CASE-003 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on trade T-100003 - quantity mismatch
+Dear Cedar Markets Operations,
+
+We are writing about trade T-100003 in TST003, where we bought the instrument at a price of 88.2 with settlement on 2026-11-18.
+
+Our record shows a quantity of 500, while your record shows 5000. The price and settlement date match on both sides, but the quantity does not.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Regards,
+Settlement Operations
+
+  --- CASE-004 (QUANTITY_MISMATCH) ---
+  Subject: Settlement break on T-100004 (TST004) - quantity mismatch
+Dear Dune Partners Operations,
+
+We have identified a settlement break on trade T-100004 in TST004, where we sold the instrument. Our record shows a quantity of 120000, while your record shows 12000. The price (6.75) and settlement date (2026-11-18) match on both sides.
+
+Please check your record against ours and confirm the correct quantity for this trade.
+
+Regards,
+Settlement Operations
+
+  --- CASE-006 (PRICE_MISMATCH) ---
+  Subject: Settlement break on trade T-100006 - price mismatch
+Dear Fir Trading Operations,
+
+We are writing about trade T-100006 in instrument TST006, where we sold 30,000 units for settlement on 2026-11-18. The quantity and settlement date match on both sides, but the price does not. Our record shows 7.8, while your record shows 7.9.
+
+Please check your record against ours and confirm the correct price for this trade. We look forward to your reply so we can resolve the break.
+
+Regards,
+Settlement Operations
+
+  --- CASE-007 (PRICE_MISMATCH) ---
+  Subject: Settlement break on trade T-100007 (TST007), price mismatch
+Dear Gum Financial Operations Desk,
+
+We are writing about trade T-100007 in TST007, where we bought 2,000 units. Quantity and settlement date of 2026-11-18 agree on both sides, but the price does not. Our record shows 102.4 and your record shows 120.4.
+
+Please check your record against ours and confirm the correct price for this trade.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+  --- CASE-008 (PRICE_MISMATCH) ---
+  Subject: Trade T-100008 (TST008): price mismatch to confirm
+Dear Alder Securities Operations Desk,
+
+We are writing about trade T-100008 in TST008, where we bought 40000 units. Quantity and settlement date (2026-11-18) agree on both records, but the price does not. Our record shows 0.455, while your record shows 0.4555.
+
+Please check your record against ours and confirm the correct price for this trade.
+
+Regards,
+Settlement Operations
+
+  --- CASE-009 (MISSING_SSI) ---
+  Subject: Settlement break on trade T-100009 - request for standing settlement instructions
+Dear Birch Capital Operations,
+
+We are writing regarding trade T-100009 in TST009, where we bought 15000 units at 22.1 with a settlement date of 2026-11-18. The quantity, price and settlement date on your side match ours.
+
+We are unable to settle this trade without your current standing settlement instructions. Could you please send them to us at your earliest convenience so we can proceed.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+  --- CASE-010 (MISSING_SSI) ---
+  Subject: Trade T-100010 (TST010) - request for current standing settlement instructions
+Dear Cedar Markets Operations,
+
+We are writing regarding trade T-100010 in TST010. We sold 8,000 units at 54.3, with settlement date 2026-11-18. Our records match your side on quantity, price and settlement date.
+
+To settle this trade, we need your current standing settlement instructions. Please send them to us at your earliest convenience so we can proceed.
+
+Thank you for your help.
+
+Regards,
+Settlement Operations
+
+  --- CASE-011 (MISSING_SSI) ---
+  Subject: Settlement break on T-100011 (TST011) - request for standing settlement instructions
+Dear Dune Partners Operations,
+
+We are writing about trade T-100011 in instrument TST011, where we bought 60,000 units at 1.85 with a settlement date of 2026-11-18. Our records and yours show matching quantity, price and settlement date, but we are unable to settle this trade without your current standing settlement instructions.
+
+Please send your current standing settlement instructions for this trade at your earliest convenience so we can proceed with settlement.
+
+Regards,
+Settlement Operations
+
+  --- CASE-012 (MISSING_SSI) ---
+  Subject: Settlement break on trade T-100012 - request for standing settlement instructions
+Dear Elm Brokerage Operations,
+
+We are writing regarding trade T-100012 in TST012. We sold 12,000 units at 9.95, with settlement date 2026-11-18. Our trade details match yours on quantity, price and settlement date.
+
+The trade cannot settle until we have your current standing settlement instructions. Please send them to us at your earliest opportunity so we can proceed.
+
+Thank you for your prompt attention.
+
+Regards,
+Settlement Operations
+
+  --- CASE-013 (UNCONFIRMED_TRADE) ---
+  Subject: Settlement break on trade T-100013 (TST013) - confirmation required
+Dear Fir Trading Operations Team,
+
+We are writing regarding trade T-100013 in instrument TST013. We bought 5,000 units at a price of 30.0, with our settlement date set for 2026-11-18.
+
+We have not yet received a confirmation for this trade. Please review your records and confirm or affirm the trade details at your earliest convenience so we can proceed with settlement.
+
+If you require anything further from our side, please let us know.
+
+Regards,
+Settlement Operations
+
+  --- CASE-014 (UNCONFIRMED_TRADE) ---
+  Subject: Trade Confirmation Required - T-100014 (TST014)
+Dear Gum Financial Operations Desk,
+
+We are writing regarding trade T-100014 in instrument TST014, where we sold 18,000 units at a price of 4.6. Our settlement date for this trade is 2026-11-18.
+
+We have not yet received a confirmation for this trade. Please review your records and confirm or affirm the trade details at your earliest convenience, including your quantity, price and settlement date, so we can proceed with settlement.
+
+Please reply to this email or contact our team directly if you have any questions.
+
+Regards,
+Settlement Operations
+
+  --- CASE-015 (UNCONFIRMED_TRADE) ---
+  Subject: Trade T-100015 (TST015) - confirmation outstanding
+Dear Alder Securities Operations,
+
+We are writing regarding trade T-100015 in instrument TST015, where we bought 9,000 units at 67.8. Our settlement date for this trade is 2026-11-18.
+
+We have not yet received a confirmation for this trade. Please review your records and confirm or affirm the trade at your earliest convenience so we can keep settlement on track.
+
+Please reply to this email or contact our settlement desk with any questions.
+
+Regards,
+Settlement Operations
+
+  --- CASE-016 (UNCONFIRMED_TRADE) ---
+  Subject: Settlement break on trade T-100016 (TST016) - confirmation required
+Dear Birch Capital Operations,
+
+We are writing regarding trade T-100016 in instrument TST016, where we sold 22,000 units at a price of 2.15. Our settlement date is 2026-11-18.
+
+We have not yet received a confirmation for this trade. Please review the trade details on your side and confirm or affirm the trade at your earliest convenience so we can proceed with settlement.
+
+If you have any questions, please let us know.
+
+Regards,
+Settlement Operations
+
+  --- CASE-021 (SETTLE_DATE_MISMATCH) ---
+  Subject: Settlement date mismatch on trade T-100021 (TST021)
+Dear Gum Financial Operations Desk,
+
+We are writing about trade T-100021 in TST021, where we bought 14000 units at 18.4. The quantity and price on both our record and yours match.
+
+The settlement date does not match. Our record shows 2026-11-18, while your record shows 2026-11-19.
+
+Please check your record against ours and confirm the correct settlement date.
+
+Regards,
+Settlement Operations
+
+  --- CASE-022 (SETTLE_DATE_MISMATCH) ---
+  Subject: Settlement date mismatch on trade T-100022 (TST022)
+Dear Alder Securities Operations,
+
+We are writing about trade T-100022 in TST022, where we sold 7,500 units at 95.0. The quantity and price match on both our record and yours, but the settlement date differs. Our record shows 2026-11-23, while your record shows 2026-11-20.
+
+Could you please check your record against ours and confirm the correct settlement date for this trade?
+
+Regards,
+Settlement Operations
+
+  --- CASE-023 (SETTLE_DATE_MISMATCH) ---
+  Subject: Settlement date mismatch on T-100023 (TST023)
+Dear Birch Capital Operations,
+
+We are writing about trade T-100023 in TST023, where we bought 33,000 units at 5.55. Quantity and price match on both sides, but the settlement date does not. Our record shows 2026-12-01, while your record shows 2026-12-03.
+
+Please check your record against ours and confirm the correct settlement date.
+
+Regards,
+Settlement Operations
+
+  --- CASE-024 (SETTLE_DATE_MISMATCH) ---
+  Subject: Settlement date mismatch on trade T-100024
+Dear Cedar Markets Operations,
+
+We have identified a settlement break on trade T-100024 in TST024, where we sold 4,200 units at 140.2. Quantity and price match on both records. However, the settlement date differs: our record shows 2026-11-26, while yours shows 2026-11-25.
+
+Please check your record against ours and confirm the correct settlement date.
+
+Regards,
+Settlement Operations
+
+Per expected category:
+  QUANTITY_MISMATCH      4/4
+  PRICE_MISMATCH         4/4
+  MISSING_SSI            4/4
+  UNCONFIRMED_TRADE      4/4
+  DUPLICATE_TRADE        4/4
+  SETTLE_DATE_MISMATCH   4/4
+  NEEDS_HUMAN            6/6
+
+Failures:
+
+Judge (prompt j1): judged 19 drafts, 0 failed
+  Average scores: accuracy=4.95  clarity=5.00  ask=4.79  tone=5.00  commitments=5.00
+  Lowest-scoring drafts:
+    CASE-011  accuracy=4  Trade ID, quantity, price, date and side all correct; 'your records show matching' is a mild unstated inference.
+    CASE-013  ask=4  One clear request to confirm or affirm the trade; the closing offer of further help slightly dilutes it.
+    CASE-014  ask=4  Core request to confirm or affirm is clear, though adding quantity, price and date details slightly widens it.
+  All judged drafts (accuracy clarity ask tone commitments):
+    CASE-001  5 5 5 5 5
+    CASE-002  5 5 5 5 5
+    CASE-003  5 5 5 5 5
+    CASE-004  5 5 5 5 5
+    CASE-006  5 5 5 5 5
+    CASE-007  5 5 5 5 5
+    CASE-008  5 5 5 5 5
+    CASE-009  5 5 5 5 5
+    CASE-010  5 5 5 5 5
+    CASE-011  4 5 5 5 5
+        accuracy=4: Trade ID, quantity, price, date and side all correct; 'your records show matching' is a mild unstated inference.
+    CASE-012  5 5 5 5 5
+    CASE-013  5 5 4 5 5
+        ask=4: One clear request to confirm or affirm the trade; the closing offer of further help slightly dilutes it.
+    CASE-014  5 5 4 5 5
+        ask=4: Core request to confirm or affirm is clear, though adding quantity, price and date details slightly widens it.
+    CASE-015  5 5 4 5 5
+        ask=4: Clear single request to confirm or affirm; the extra invitation to reply or call is minor.
+    CASE-016  5 5 4 5 5
+        ask=4: Single request to confirm or affirm, though 'review the trade details' adds a minor extra step.
+    CASE-021  5 5 5 5 5
+    CASE-022  5 5 5 5 5
+    CASE-023  5 5 5 5 5
+    CASE-024  5 5 5 5 5
+Saved results/eval-2026-11-22T23-17-57.513895Z.json
+
+RESULT: PASS
